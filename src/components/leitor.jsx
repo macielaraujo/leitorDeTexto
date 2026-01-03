@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import { Upload, Play, Square, Loader2, FileText, Volume2 } from "lucide-react";
 
-// Configuração do Worker (mantendo a que funcionou para você)
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 export default function LeitorAcessivel() {
@@ -13,14 +12,12 @@ export default function LeitorAcessivel() {
   const synthRef = useRef(window.speechSynthesis);
   const utteranceRef = useRef(null);
 
-  // Monitora se a fala terminou para atualizar o botão
   useEffect(() => {
     const synth = synthRef.current;
     const checkSpeaking = setInterval(() => {
       setIsSpeaking(synth.speaking);
     }, 500);
 
-    // Limpa ao desmontar
     return () => {
       clearInterval(checkSpeaking);
       synth.cancel();
@@ -33,7 +30,6 @@ export default function LeitorAcessivel() {
 
     setIsLoading(true);
     setFileName(arquivo.name);
-    // Cancela fala anterior se houver
     synthRef.current.cancel();
 
     try {
@@ -69,7 +65,6 @@ export default function LeitorAcessivel() {
     utterance.onend = () => setIsSpeaking(false);
     utterance.onstart = () => setIsSpeaking(true);
     utteranceRef.current = utterance;
-    // Inicia automaticamente após processar
     synthRef.current.speak(utteranceRef.current);
   };
 
@@ -93,7 +88,6 @@ export default function LeitorAcessivel() {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex justify-center font-sans">
       <main className="max-w-3xl w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
-        {/* Header */}
         <header className="text-center border-b border-slate-100 pb-6">
           <div className="flex justify-center mb-4">
             <div className="p-3 bg-blue-100 rounded-full">
@@ -101,7 +95,7 @@ export default function LeitorAcessivel() {
             </div>
           </div>
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
-            Leitor Acessível
+            Assistente de Leitura
           </h1>
           <p className="mt-2 text-lg text-slate-600">
             Carregue um documento (PDF ou TXT) e nós o leremos para você.
@@ -119,11 +113,9 @@ export default function LeitorAcessivel() {
                   : "border-slate-300 hover:border-blue-500 hover:bg-blue-50 focus-within:ring-4 focus-within:ring-blue-200 focus-within:border-blue-500"
               }
             `}
-            // Importante para leitores de tela saberem que isso é clicável
             role="button"
             tabIndex="0"
             onKeyDown={(e) => {
-              // Permite ativar o upload com Enter ou Espaço
               if (e.key === "Enter" || e.key === " ") {
                 document.getElementById("file-upload").click();
               }
@@ -173,7 +165,7 @@ export default function LeitorAcessivel() {
               accept=".pdf,.txt,text/plain,application/pdf"
               onChange={lerArquivo}
               disabled={isLoading}
-              className="sr-only" // Esconde o input nativo visualmente, mas mantém acessível
+              className="sr-only"
               aria-label="Carregar arquivo para leitura"
             />
           </label>
@@ -223,10 +215,9 @@ export default function LeitorAcessivel() {
             </h2>
             <div
               className="bg-slate-50 p-6 rounded-xl border border-slate-200 max-h-96 overflow-y-auto text-lg leading-relaxed text-slate-700 text-left focus:outline-none focus:ring-4 focus:ring-blue-200"
-              tabIndex="0" // Permite que quem navega por teclado role o texto
+              tabIndex="0"
               aria-label="Texto extraído do documento"
             >
-              {/* Usando white-space-pre-line para respeitar as quebras de linha do PDF */}
               <p className="whitespace-pre-line">{texto}</p>
             </div>
           </section>
