@@ -1,6 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import * as pdfjsLib from "pdfjs-dist";
-import { Upload, Play, Square, Loader2, FileText, Volume2 } from "lucide-react";
+import {
+  Upload,
+  Play,
+  Square,
+  Loader2,
+  FileText,
+  Volume2,
+  HelpCircle,
+  FolderClosed,
+  X,
+  Keyboard,
+  MousePointer2,
+} from "lucide-react";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
@@ -11,6 +23,7 @@ export default function LeitorAcessivel() {
   const [fileName, setFileName] = useState("");
   const synthRef = useRef(window.speechSynthesis);
   const utteranceRef = useRef(null);
+  const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {
     const synth = synthRef.current;
@@ -87,6 +100,115 @@ export default function LeitorAcessivel() {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex justify-center font-sans">
+      {showHelp && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <div className="bg-white z-50 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white">
+              <h2
+                id="modal-title"
+                className="text-2xl font-bold text-slate-900 flex items-center gap-2"
+              >
+                <HelpCircle className="text-blue-600" /> Guia de Acessibilidade
+              </h2>
+              <button
+                onClick={() => setShowHelp(false)}
+                className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                aria-label="Fechar guia"
+              >
+                <X className="w-6 h-6 text-slate-500" />
+              </button>
+            </div>
+
+            <div className="p-8 space-y-6 text-slate-700">
+              <section>
+                <h3 className="font-bold text-lg text-slate-900 flex items-center gap-2 mb-3">
+                  <Keyboard className="w-5 h-5 text-blue-500" /> Navegação por
+                  Teclado
+                </h3>
+                <ul className="text-left list-disc ml-5 space-y-2">
+                  <li>
+                    Use a tecla <strong>Tab</strong> para saltar entre botões e
+                    campos e <strong>Shift + Tab</strong> para retornar entre os
+                    botões.
+                  </li>
+                  <li>
+                    Pressione <strong>Enter</strong> ou <strong>Espaço</strong>{" "}
+                    para ativar as opções.
+                  </li>
+                  <li>
+                    As setas do teclado permitem ler o texto extraído após este
+                    ser processado.
+                  </li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="font-bold text-lg text-slate-900 flex items-center gap-2 mb-3">
+                  <FolderClosed className="w-5 h-5 text-blue-500" /> Como
+                  carregar um documento
+                </h3>
+                <ul className="text-left list-disc ml-5 space-y-2">
+                  <li>
+                    Navegue com a tecla <strong>Tab</strong> até ouvir o leitor
+                    de tela dizer: "Carregar arquivo para leitura".
+                  </li>
+                  <li>
+                    Pressione <strong>Enter</strong> ou <strong>Espaço</strong>.
+                    Uma janela do seu computador se abrirá.
+                  </li>
+                  <li>
+                    Escolha um arquivo <strong>PDF</strong> ou{" "}
+                    <strong>TXT</strong> e confirme.
+                  </li>
+                  <li>
+                    <strong>Aguarde um instante:</strong> O sistema processará o
+                    arquivo automaticamente. Você ouvirá um aviso sonoro ou a
+                    leitura do texto começará assim que o processamento
+                    terminar.
+                  </li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="font-bold text-lg text-slate-900 flex items-center gap-2 mb-3">
+                  <Volume2 className="w-5 h-5 text-blue-500" /> Controlos de Voz
+                </h3>
+                <p>
+                  Após carregar um arquivo (PDF ou TXT), a leitura iniciará
+                  automaticamente. Pode usar os botões{" "}
+                  <strong>"Pausar/Retomar"</strong> ou <strong>"Parar"</strong>{" "}
+                  para controlar o áudio.
+                </p>
+              </section>
+
+              <section className="bg-blue-50 p-4 rounded-xl">
+                <h3 className="font-bold text-blue-900 mb-2">
+                  Dica para Leitores de Ecrã:
+                </h3>
+                <p className="text-blue-800 text-sm italic">
+                  "Este site utiliza regiões de anúncio em tempo real
+                  (aria-live). Será notificado automaticamente sobre o estado do
+                  processamento sem precisar de navegar pela página."
+                </p>
+              </section>
+            </div>
+
+            <div className="p-6 border-t border-slate-100 text-center">
+              <button
+                onClick={() => setShowHelp(false)}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all w-full sm:w-auto"
+              >
+                Entendido, vamos começar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <main className="max-w-3xl w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
         <header className="text-center border-b border-slate-100 pb-6">
           <div className="flex justify-center mb-4">
@@ -100,6 +222,12 @@ export default function LeitorAcessivel() {
           <p className="mt-2 text-lg text-slate-600">
             Carregue um documento (PDF ou TXT) e nós o leremos para você.
           </p>
+          <button
+            onClick={() => setShowHelp(true)}
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all w-full sm:w-auto my-5"
+          >
+            Acessar Guia de uso
+          </button>
         </header>
 
         {/* Área de Upload */}
