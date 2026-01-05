@@ -210,21 +210,26 @@ export default function LeitorAcessivel() {
         </div>
       )}
       <main className="max-w-3xl w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
-        <header className="text-center border-b border-slate-100 pb-6">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 bg-blue-100 rounded-full">
+        <header className="text-center border-b border-slate-100 pb-6 relative">
+          <img
+            src="/brasao1_horizontal_cor_72dpi.png"
+            alt="Brasão UFC"
+            className=" h-12 mb-14"
+          />
+          <div className="flex justify-center mb-4 ">
+            {/* <div className="p-3 bg-blue-100 rounded-full">
               <Volume2 className="w-8 h-8 text-blue-600" aria-hidden="true" />
-            </div>
+            </div> */}
           </div>
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
-            Assistente de Leitura
+            VoxLegere
           </h1>
           <p className="mt-2 text-lg text-slate-600">
             Carregue um documento (PDF ou TXT) e nós o leremos para você.
           </p>
           <button
             onClick={() => setShowHelp(true)}
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all w-full sm:w-auto my-5"
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all w-full sm:w-auto my-5 hover:cursor-pointer"
           >
             Acessar Guia de uso
           </button>
