@@ -99,7 +99,7 @@ export default function LeitorAcessivel() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex justify-center font-sans">
+    <div className="min-h-screen w-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex justify-center font-sans">
       {showHelp && (
         <div
           className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm"
@@ -107,7 +107,7 @@ export default function LeitorAcessivel() {
           aria-modal="true"
           aria-labelledby="modal-title"
         >
-          <div className="bg-white z-50 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
+          <div className="bg-white z-50 rounded-2xl md:max-w-2xl md:w-full w-80 max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
             <div className="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white">
               <h2
                 id="modal-title"
@@ -240,7 +240,7 @@ export default function LeitorAcessivel() {
         <section>
           <label
             htmlFor="file-upload"
-            className={`relative group flex flex-col items-center justify-center w-full h-48 border-3 border-dashed rounded-xl transition-all cursor-pointer
+            className={`relative group flex flex-col items-center justify-center w-full md:h-48 border-3 border-dashed rounded-xl transition-all cursor-pointer
               ${
                 isLoading
                   ? "border-blue-300 bg-blue-50 cursor-wait"
