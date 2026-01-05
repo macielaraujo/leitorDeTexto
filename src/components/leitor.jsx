@@ -217,9 +217,10 @@ export default function LeitorAcessivel() {
             className=" h-12 mb-14"
           />
           <div className="flex justify-center mb-4 ">
-            {/* <div className="p-3 bg-blue-100 rounded-full">
-              <Volume2 className="w-8 h-8 text-blue-600" aria-hidden="true" />
-            </div> */}
+            <div className="p-3 bg-blue-100 rounded-full">
+              {/* <Volume2 className="w-8 h-8 text-blue-600" aria-hidden="true" /> */}
+              <img src="/favicon.ico" alt="logo" className="w-14" />
+            </div>
           </div>
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
             VoxLegere
