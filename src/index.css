@@ -60,7 +60,7 @@ button:hover {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -71,4 +71,4 @@ button:hover {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

@@ -3,6 +3,7 @@ import * as pdfjsLib from "pdfjs-dist";
 import {
   Upload,
   Play,
+  Trash,
   Square,
   Loader2,
   FileText,
@@ -321,6 +322,16 @@ export default function LeitorAcessivel() {
                 <Play className="w-6 h-6" aria-hidden="true" />
               )}
               {isSpeaking ? "Pausar / Retomar" : "Ler Documento"}
+            </button>
+
+            <button
+              onClick={() => {
+                location.reload();
+              }}
+              className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 font-bold rounded-lg transition-all focus:outline-none focus:ring-4 focus:ring-red-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Trash className="w-6 h-6" aria-hidden="true" />
+              Limpar
             </button>
 
             <button
